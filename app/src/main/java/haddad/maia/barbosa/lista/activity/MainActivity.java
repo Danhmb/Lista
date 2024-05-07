@@ -2,6 +2,7 @@ package haddad.maia.barbosa.lista.activity;
 
 //imports
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +15,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import haddad.maia.barbosa.lista.R;
 
 public class MainActivity extends AppCompatActivity {
     //criação do identificador
     static int NEW_ITEM_REQUEST = 1;
+
+    //criação da lista
+    List<MyItem> itens = new ArrayList<>();
 
     //cria elementos da tela
     @Override
@@ -47,4 +54,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == NEW_ITEM_REQUEST){
+            if (resultCode == Activity.RESULT_OK){
+
+
+                //cria um item para guardar seus respectivos dados
+                MyItem myitem = new MyItem();
+
+                //guarda os dados vindo de NewItemActivity e,logo após, adicionamos no array
+                myitem.title = data.getStringExtra("title");
+                myitem.desc = data.getStringExtra("description");
+                myitem.photo = data.getData();
+                itens.add(myitem);
+
+            }
+        }
+
+    }
+
 }
