@@ -1,4 +1,4 @@
-package haddad.maia.barbosa.lista.activity;
+package haddad.maia.barbosa.lista.adapter;
 
 import android.view.View;
 

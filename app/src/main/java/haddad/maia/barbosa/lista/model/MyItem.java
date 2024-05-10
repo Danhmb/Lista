@@ -1,4 +1,4 @@
-package haddad.maia.barbosa.lista.activity;
+package haddad.maia.barbosa.lista.model;
 
 import android.net.Uri;
 

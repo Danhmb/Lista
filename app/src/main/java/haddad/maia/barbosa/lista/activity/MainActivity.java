@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import haddad.maia.barbosa.lista.R;
+import haddad.maia.barbosa.lista.adapter.MyAdapter;
+import haddad.maia.barbosa.lista.model.MyItem;
 
 public class MainActivity extends AppCompatActivity {
     //criação do identificador

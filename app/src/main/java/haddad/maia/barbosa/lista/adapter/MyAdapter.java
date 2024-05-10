@@ -1,4 +1,4 @@
-package haddad.maia.barbosa.lista.activity;
+package haddad.maia.barbosa.lista.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import haddad.maia.barbosa.lista.R;
+import haddad.maia.barbosa.lista.activity.MainActivity;
+import haddad.maia.barbosa.lista.model.MyItem;
 
 public class MyAdapter extends RecyclerView.Adapter {
     MainActivity mainActivity;
