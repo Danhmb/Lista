@@ -3,6 +3,8 @@ package haddad.maia.barbosa.lista.activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,8 @@ import haddad.maia.barbosa.lista.R;
 public class MyAdapter extends RecyclerView.Adapter {
     MainActivity mainActivity;
     List<MyItem> itens;
+
+    //construtor
     public MyAdapter(MainActivity mainActivity, List<MyItem> itens){
         this.mainActivity = mainActivity;
         this.itens = itens;
@@ -30,10 +34,28 @@ public class MyAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        //pega o item pela sua posição
+        MyItem myItem = itens.get(position);
+
+        //pega o objeto de tipagem View dentro do ViewHolder
+        View v = holder.itemView;
+
+        //pega a imagem dentro do objeto view pelo seu respectivo id
+        ImageView imvphoto = v.findViewById(R.id.imvPhoto);
+        imvphoto.setImageURI(myItem.photo);
+
+        //pega o título dentro do objeto view pelo seu respectivo id
+        TextView tvTitle = v.findViewById(R.id.tvTitle);
+        tvTitle.setText(myItem.title);
+
+        //pega a descrição dentro do objeto view pelo seu respectivo id
+        TextView tvdesc = v.findViewById(R.id.tvDesc);
+        tvdesc.setText(myItem.desc);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        //pega o tamanho da lista
+        return itens.size();
     }
 }

@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     //criação da lista
     List<MyItem> itens = new ArrayList<>();
+
+    MyAdapter myAdapter;
 
     //cria elementos da tela
     @Override
@@ -53,6 +58,31 @@ public class MainActivity extends AppCompatActivity {
                     startActivityForResult(i, NEW_ITEM_REQUEST);
             }
         });
+
+        //pega o RecycleView pelo seu id
+        RecyclerView rvItens = findViewById(R.id.rvItens);
+
+        //Cria o adapter passando o a tela princiapl e os itens(lista)
+        myAdapter = new MyAdapter(this,itens);
+
+        //seta o adapter
+        rvItens.setAdapter(myAdapter);
+
+        //indica que não há variação de tamanho entre os itens
+        rvItens.setHasFixedSize(true);
+
+        //criação de um layout linear
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+
+        //aqui o layput é setado no RecycleView
+        rvItens.setLayoutManager(layoutManager);
+
+        //cria um "separador" de itens por linhas
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvItens.getContext(), DividerItemDecoration.VERTICAL);
+
+        //o separador é setadp no RecycleView
+        rvItens.addItemDecoration(dividerItemDecoration);
+
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -69,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
                 myitem.desc = data.getStringExtra("description");
                 myitem.photo = data.getData();
                 itens.add(myitem);
+
+                //Adapter é notificado para atualizar RecycleView e exibir um novo item um novo item.
+                myAdapter.notifyItemInserted(itens.size()-1);
 
             }
         }
