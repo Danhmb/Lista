@@ -4,6 +4,8 @@ package haddad.maia.barbosa.lista.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,12 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import haddad.maia.barbosa.lista.R;
 import haddad.maia.barbosa.lista.adapter.MyAdapter;
 import haddad.maia.barbosa.lista.model.MyItem;
+import haddad.maia.barbosa.lista.util.Util;
 
 public class MainActivity extends AppCompatActivity {
     //criação do identificador
@@ -99,7 +103,21 @@ public class MainActivity extends AppCompatActivity {
                 //guarda os dados vindo de NewItemActivity e,logo após, adicionamos no array
                 myitem.title = data.getStringExtra("title");
                 myitem.desc = data.getStringExtra("description");
-                myitem.photo = data.getData();
+
+                Uri selectedPhotoUri = data.getData();
+                try{
+                    //carrega a imagem e guarda no Bitmap(assim é criada a cópia dela)
+                    Bitmap photo = Util.getBitmap(MainActivity.this,selectedPhotoUri,100,100);
+
+                    //guarda o Bitmap dentro de um objeto MyItem
+                    myitem.photo = photo;
+
+                    //caso o arquivo de imagem não seja encontrado ativa a exceção
+                }catch(FileNotFoundException e){
+                    e.printStackTrace();
+                }
+
+
                 itens.add(myitem);
 
                 //Adapter é notificado para atualizar RecycleView e exibir um novo item um novo item.
