@@ -32,7 +32,7 @@ android {
 dependencies {
 
     //baixa a biblioteca lifecycle e a implementa ao projeto
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

@@ -3,6 +3,7 @@ package haddad.maia.barbosa.lista.activity;
 //imports
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.Toast;
-
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -28,7 +28,6 @@ public class NewItemActivity extends AppCompatActivity {
     static int PHOTO_PICKER_REQUEST = 1;
 
     //guarda o endereço da foto selecionada pelo usuário
-    Uri photoSelected = null;
 
     //cria elementos da tela
     @Override
@@ -93,7 +92,7 @@ public class NewItemActivity extends AppCompatActivity {
                 }
 
                 //cria um intent para retornar dados
-                Intent i = new Intent();
+                 Intent i = new Intent();
 
                 //seta o endereço(Uri) da imagem no intent
                 i.setData(photoSelected);
@@ -128,7 +127,7 @@ public class NewItemActivity extends AppCompatActivity {
                 ImageView imvPhotoPreview =  findViewById(R.id.imvPhotoPreview);
 
                 //aqui é setado a uri na imvPhotoPreview
-                imvPhotoPreview.setImageURI(photoSelected);
+                imvPhotoPreview.setImageUri(photoSelected);
             }
         }
     }
