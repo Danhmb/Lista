@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         //Cria o adapter passando o a tela princiapl e os itens(lista)
         myAdapter = new MyAdapter(this,itens);
 
-        //seta o adapter
+        //Seta o adapter
         rvItens.setAdapter(myAdapter);
 
         //indica que não há variação de tamanho entre os itens
