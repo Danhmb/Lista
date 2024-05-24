@@ -115,7 +115,7 @@ public class NewItemActivity extends AppCompatActivity {
                  Intent i = new Intent();
 
                 //seta o endereço(Uri) da imagem no intent
-                i.setData(selectPhotoLocation);
+                i.setData(photoSelected);
 
                 //seta o título e a descrição no intent
                 i.putExtra("title", title);
