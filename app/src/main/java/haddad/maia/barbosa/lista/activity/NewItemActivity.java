@@ -3,9 +3,8 @@ package haddad.maia.barbosa.lista.activity;
 //imports
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -20,8 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+
+import java.net.URI;
+import java.util.List;
 
 import haddad.maia.barbosa.lista.R;
+import haddad.maia.barbosa.lista.model.MainActivityViewModel;
+import haddad.maia.barbosa.lista.model.MyItem;
+import haddad.maia.barbosa.lista.model.NewItemActivityViewModel;
 
 public class NewItemActivity extends AppCompatActivity {
     //criação de identificador
@@ -40,6 +46,17 @@ public class NewItemActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        //puxa o view modew referente a NewItemActivityViewModel
+        NewItemActivityViewModel vm = new ViewModelProvider(this).get(NewItemActivityViewModel.class);
+
+        //pega a uri da foto selecionada que estava dentro do view model
+        Uri selectPhotoLocation = vm.getSelectedPhotoLocation();
+        if(selectPhotoLocation != null){
+            ImageView imvPhotoPreview = findViewById(R.id.imvPhotoPreview);
+            imvPhotoPreview.setImageURI(selectPhotoLocation);
+        }
+
         //pega o botão da imagem pelo id
         ImageButton imgCI = findViewById(R.id.imbCI);
 
@@ -62,6 +79,9 @@ public class NewItemActivity extends AppCompatActivity {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //pega a uri da foto selecionada que estava dentro do view model
+                Uri photoSelected = vm.getSelectedPhotoLocation();
 
                 //verifica se a foto selecionada é vazia
                 if (photoSelected == null) {
@@ -95,7 +115,7 @@ public class NewItemActivity extends AppCompatActivity {
                  Intent i = new Intent();
 
                 //seta o endereço(Uri) da imagem no intent
-                i.setData(photoSelected);
+                i.setData(selectPhotoLocation);
 
                 //seta o título e a descrição no intent
                 i.putExtra("title", title);
@@ -121,13 +141,19 @@ public class NewItemActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK){
 
                 //armazena a Uri da image ou seja, o endereço da imagem
-                photoSelected = data.getData();
+                Uri photoSelected = data.getData();
 
                 //pega a imageView
                 ImageView imvPhotoPreview =  findViewById(R.id.imvPhotoPreview);
 
                 //aqui é setado a uri na imvPhotoPreview
-                imvPhotoPreview.setImageUri(photoSelected);
+                imvPhotoPreview.setImageURI(photoSelected);
+
+                //puxa o view modew referente a NewItemActivityViewModel
+                NewItemActivityViewModel vm = new ViewModelProvider(this).get(NewItemActivityViewModel.class);
+
+                //seta no view model a uri da foto selecionada
+                vm.setSelectedPhotoLocation(photoSelected);
             }
         }
     }

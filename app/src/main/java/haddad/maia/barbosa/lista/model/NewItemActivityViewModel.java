@@ -11,6 +11,7 @@ public class NewItemActivityViewModel extends ViewModel{
     //guarda somente a URI da foto para que mesmo que a tela seja rotacionada ela não suma
     Uri selectedPhotoLocation = null;
 
+
     //obtém itens da lista
     public Uri getSelectedPhotoLocation() {
         return selectedPhotoLocation;

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,15 +27,13 @@ import java.util.List;
 
 import haddad.maia.barbosa.lista.R;
 import haddad.maia.barbosa.lista.adapter.MyAdapter;
+import haddad.maia.barbosa.lista.model.MainActivityViewModel;
 import haddad.maia.barbosa.lista.model.MyItem;
 import haddad.maia.barbosa.lista.util.Util;
 
 public class MainActivity extends AppCompatActivity {
     //criação do identificador
     static int NEW_ITEM_REQUEST = 1;
-
-    //criação da lista
-    List<MyItem> itens = new ArrayList<>();
 
     MyAdapter myAdapter;
 
@@ -67,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
         //pega o RecycleView pelo seu id
         RecyclerView rvItens = findViewById(R.id.rvItens);
+
+        //puxa o view modew referente a MainActivityViewModel
+        MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+        //pega a lista de itens dentro do view model
+        List<MyItem> itens = vm.getItens();
 
         //Cria o adapter passando o a tela princiapl e os itens(lista)
         myAdapter = new MyAdapter(this,itens);
@@ -117,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                //puxa o view modew referente a MainActivityViewModel
+                MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+                //pega os itens da lista do view model
+                List<MyItem> itens = vm.getItens();
 
                 itens.add(myitem);
 
